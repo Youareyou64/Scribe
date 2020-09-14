@@ -50,19 +50,23 @@ async def tts(ctx):
             usernick == client.user.display_name
         # obtaining Mp3
         mess = str(ctx.message.content)
+        print("message received")
         mess = usernick + "says." + mess.replace("s!tts ", '')
         message_id = str(ctx.message.id)
         aiogtts=aiogTTS()
         io = BytesIO()
+        print("String ready to send")
         await aiogtts.save(mess, "speech" + ".mp3", lang='en')
-        await aiogtts.write_to_fp(mess, io, slow=False, lang='en')
+        print("mp3 converted, awaiting save")
+        # await aiogtts.write_to_fp(mess, io, slow=False, lang='en')
+        print("mp3 saved")
 
         # playing mp3
         voice = get(client.voice_clients, guild=ctx.guild)
         voice.play(discord.FFmpegPCMAudio("speech.mp3"), after=lambda e: print(f"Message has finished playing"))
         voice.source = discord.PCMVolumeTransformer(voice.source)
         voice.source.volume = 0.2
-    except:
+    except AttributeError:
         await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connwction time out. ```AttributeError: Duplicated Voice Session upon reboot```")
 
 @client.command()
@@ -97,6 +101,7 @@ async def contributors(ctx):
     )
     cont_embed.set_author(name="Scribe Contributors")
     cont_embed.add_field(name='Lead Dev', value='Youareyou#0513', inline=False)
+    cont_embed.add_field(name='Co Lead Dev', value='MvKal#6472', inline=False)
     cont_embed.add_field(name='Special thanks to', value='The RPAN Mod Team (provided cute cat photos), all of my testers, and those who helped me troubleshoot', inline=False)
 
     await ctx.send(embed=cont_embed)
