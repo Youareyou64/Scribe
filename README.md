@@ -1,2 +1,2 @@
 # Scribe 
-# hello idk what this file does
+# Your mama's hoe

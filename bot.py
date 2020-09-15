@@ -1,5 +1,3 @@
-
-
 import discord
 from discord.ext import commands
 import os
@@ -8,6 +6,9 @@ from io import BytesIO
 from aiogtts import aiogTTS
 from discord.utils import get
 import shelve
+from queue_consumer import QueueConsumer
+from voice_message import VoiceMessage
+
 
 
 client = commands.Bot(command_prefix='s!')
@@ -16,11 +17,13 @@ client.remove_command('help')
 nicknames = shelve.open("nick_data")
 # nicknames["435200177217732633"] = "Youareyou"
 
+queues = {}
+
 @client.event
 async def on_ready():
     print('Bot is ready!')
     await client.change_presence(activity=discord.Game(name='type s!info'))
-    nicknames = shelve.open("nick_data")
+    #nicknames = shelve.open("nick_data")
 
 
 @client.command()
@@ -47,25 +50,11 @@ async def tts(ctx):
     try:
         usernick = nicknames.get(str(ctx.message.author.id), "nonick")
         if usernick == "nonick":
-            usernick == client.user.display_name
-        # obtaining Mp3
-        mess = str(ctx.message.content)
-        print("message received")
-        mess = usernick + "says." + mess.replace("s!tts ", '')
-        message_id = str(ctx.message.id)
-        aiogtts=aiogTTS()
-        io = BytesIO()
-        print("String ready to send")
-        await aiogtts.save(mess, "speech" + ".mp3", lang='en')
-        print("mp3 converted, awaiting save")
-        # await aiogtts.write_to_fp(mess, io, slow=False, lang='en')
-        print("mp3 saved")
+            usernick = ctx.author.display_name
 
-        # playing mp3
         voice = get(client.voice_clients, guild=ctx.guild)
-        voice.play(discord.FFmpegPCMAudio("speech.mp3"), after=lambda e: print(f"Message has finished playing"))
-        voice.source = discord.PCMVolumeTransformer(voice.source)
-        voice.source.volume = 0.2
+        await queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), usernick))
+
     except AttributeError:
         await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connwction time out. ```AttributeError: Duplicated Voice Session upon reboot```")
 
@@ -112,7 +101,10 @@ async def join(ctx):
     try:
         global channel
         channel = ctx.message.author.voice.channel
-        await channel.connect()
+        vclient = await channel.connect()
+        queue = asyncio.queues.Queue()
+        queues[vclient] = queue
+        asyncio.create_task(QueueConsumer(queue, vclient).start_consuming())
         await ctx.send(":white_check_mark: I have joined the voice channel!")
     except:
         await ctx.send(":x: Join failed, please ensure you are in a voice channel that the bot has access to!")
