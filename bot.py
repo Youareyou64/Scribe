@@ -25,6 +25,9 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name='type s!info'))
     #nicknames = shelve.open("nick_data")
 
+    for vcc in client.voice_clients:
+        await vcc.disconnect(force=True)
+
 
 @client.command()
 async def nick(ctx):
@@ -129,7 +132,7 @@ async def leave(ctx):
         try:
             channel = ctx.message.author.voice.channel
             server = ctx.message.guild.voice_client
-            await server.disconnect()
+            await server.disconnect(force=True)
             await ctx.send(":ballot_box_with_check: I have left the channel")
         except:
             await ctx.send(":x: You must be in the voice channel that you'd like me to leave")
