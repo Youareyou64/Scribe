@@ -1,2 +1,2 @@
 # Scribe 
-# Your mama's hoe
+# Scribe=Best bot
