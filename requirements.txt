@@ -1,0 +1,5 @@
+aiogTTS==1.0.1
+discord.py==1.4.1
+discord==1.0.1
+gtts==2.1.1
+python-dotenv==0.14.0

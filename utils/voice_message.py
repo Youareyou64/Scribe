@@ -78,6 +78,3 @@ class VoiceMessage:
     def nick_said(self, *args):
         self.nickspoken = True
         print("Nick said")
-
-
-
