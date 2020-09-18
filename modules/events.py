@@ -5,7 +5,7 @@ class Events(Cog):
         self.bot = bot
 
     @Cog.listener()
-    async def on_command_error(ctx, error):
+    async def on_command_error(self, ctx, error):
         print(error)
         await ctx.send(f"Command failed error message `{error}`")
 
