@@ -1,6 +1,7 @@
 from discord import Embed, Colour
 from discord.ext.commands import Cog, command
 
+
 class General(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -21,13 +22,13 @@ class General(Cog):
 
     @command()
     async def ping(self, ctx):
-        await ctx.send(f"Pong! **{round(client.latency * 1000)}ms**")
+        await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
 
     @command()
     async def nick(self, ctx, nickname: str):
         self.bot.nicknames[str(ctx.message.author.id)] = nickname
-        print(f"{client.user.id}'s nickname changed to {nnick}")
-        await ctx.send(":ballot_box_with_check: Nickname changed to " + nnick)
+        print(f"{self.bot.user.id}'s nickname changed to {nickname}")
+        await ctx.send(":ballot_box_with_check: Nickname changed to " + nickname)
 
     @command()
     async def info(self, ctx):
@@ -38,8 +39,8 @@ class General(Cog):
         info_embed.add_field(name="Owner", value="@Youareyou#0513", inline=True)
         info_embed.add_field(name="Contributors", value="s!contributors", inline=False)
         info_embed.add_field(name="Help", value="s!help", inline=True)
-        info_embed.add_field(name="Users", value=len(client.users), inline=False)
-        info_embed.add_field(name="Guilds", value=len(client.guilds), inline=True)
+        info_embed.add_field(name="Users", value=len(self.bot.users), inline=False)
+        info_embed.add_field(name="Guilds", value=len(self.bot.guilds), inline=True)
         await ctx.send(embed=info_embed)
 
     @command()
@@ -52,6 +53,7 @@ class General(Cog):
         contrib_embed.set_author(name="Scribe Contributors")
         contrib_embed.add_field(name="Lead Dev", value="Youareyou#0513", inline=False)
         contrib_embed.add_field(name="Co Lead Dev", value="MvKal#6472", inline=False)
+        contrib_embed.add_field(name="Contributor", value="OneUpPotato#1418", inline=False)
         contrib_embed.add_field(name="Special thanks to", value="The RPAN Mod Team (provided cute cat photos), all of my testers, and those who helped me troubleshoot", inline=False)
         await ctx.send(embed=contrib_embed)
 
