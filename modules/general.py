@@ -1,6 +1,7 @@
 from discord import Embed, Colour
 from discord.ext.commands import Cog, command
-
+from discord.ext.commands import has_permissions
+import shelve
 
 class General(Cog):
     def __init__(self, bot):
@@ -54,8 +55,31 @@ class General(Cog):
         contrib_embed.add_field(name="Lead Dev", value="Youareyou#0513", inline=False)
         contrib_embed.add_field(name="Co Lead Dev", value="MvKal#6472", inline=False)
         contrib_embed.add_field(name="Contributor", value="OneUpPotato#1418", inline=False)
-        contrib_embed.add_field(name="Special thanks to", value="The RPAN Mod Team (provided cute cat photos), all of my testers, and those who helped me troubleshoot", inline=False)
+        contrib_embed.add_field(name="Hosting", value="deĉjo#7610 and the YACU", inline=False)
+        contrib_embed.add_field(name="Special thanks to", value="Everyone else who helped out and provided support!", inline=False)
         await ctx.send(embed=contrib_embed)
+
+    @command()
+    async def mute(self, ctx, *, user: str):
+        if ctx.author.guild_permissions.mute_members:
+            muted_users = shelve.open("muted_users")
+            muted_users[user] = True
+            print(f"{user} has been muted")
+            await ctx.send(f"{user} has been muted")
+        else:
+            await ctx.send(f":x: You are unable to mute {user} because you do not have the Mute Users server permission.")
+
+    @command()
+    async def unmute(self, ctx, *, user: str):
+        if ctx.author.guild_permissions.mute_members:
+            muted_users = shelve.open("muted_users")
+            muted_users[user] = False
+            print(f"{user} has been unmuted")
+            await ctx.send(f"{user} has been unmuted")
+        else:
+            await ctx.send(f":x: You are unable to unmute {user} because you do not have the Mute Users server permission.")
+
+
 
 def setup(bot):
     bot.add_cog(General(bot))

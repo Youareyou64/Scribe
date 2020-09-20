@@ -2,6 +2,8 @@ from discord.ext.commands import Cog, command
 from discord import utils
 from discord.utils import get
 
+
+import shelve
 import os
 import asyncio
 from io import BytesIO
@@ -18,13 +20,22 @@ class TTSModule(Cog):
 
     @command()
     async def tts(self, ctx):
-        try:
-            user_nick = self.bot.get_user_nick(ctx.author)
-            voice = get(self.bot.voice_clients, guild=ctx.guild)
-            await self.queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), user_nick))
+        muted_users = shelve.open("muted_users")
+        is_muted = muted_users.get("<@!" + (str(ctx.author.id) + ">"), default=False)
+        if is_muted == False:
+            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+            try:
+                user_nick = self.bot.get_user_nick(ctx.author)
+                voice = get(self.bot.voice_clients, guild=ctx.guild)
+                await self.queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), user_nick))
 
-        except AttributeError:
-            await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connwction time out. ```AttributeError: Duplicated Voice Session upon reboot```")
+            except AttributeError:
+                await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connwction time out. ```AttributeError: Duplicated Voice Session upon reboot```")
+            except KeyError:
+                await ctx.send(":x: Error. I must be in a voice channel to use this command.")
+        else:
+            print("Failed to TTS, user is muted")
+            await ctx.send("TTS Failed. User has been banned from using TTS. Use s!unmute to unmute.")
 
     @command(aliases=["j", "joi"])
     async def join(self, ctx):

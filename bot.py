@@ -7,6 +7,7 @@ from traceback import print_exc
 
 from utils.settings import Settings
 
+
 class ScribeBot(Bot):
     def __init__(self):
         # Load the bot's settings.
@@ -24,6 +25,8 @@ class ScribeBot(Bot):
 
         # Load the nicknames shelve.
         self.nicknames = shelve.open("nick_data")
+
+
 
         # Load the modules.
         modules = ["general", "events", "tts"]
