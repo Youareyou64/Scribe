@@ -47,6 +47,13 @@ class General(Cog):
         await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
 
     @command()
+    async def privacy(self, ctx):
+        privacyembed = Embed(colour=Colour(0xff0000))
+        privacyembed.set_author(name="**Scribe Privacy Policy**")
+        privacyembed.add_field(name="Scribe's Privacy policy can be viewed here", value="https://pastebin.com/FbXLrQTi")
+        await ctx.send("", embed=privacyembed)
+
+    @command()
     async def nick(self, ctx, nickname: str):
         self.bot.nicknames[str(ctx.message.author.id)] = nickname
         print(f"{self.bot.user.id}'s nickname changed to {nickname}")
