@@ -23,8 +23,8 @@ class TTSModule(Cog):
         muted_users = shelve.open("muted_users")
         is_muted = muted_users.get("<@!" + (str(ctx.author.id) + ">"), default=False)
         if is_muted == False:
-            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
             try:
+                await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
                 user_nick = self.bot.get_user_nick(ctx.author)
                 voice = get(self.bot.voice_clients, guild=ctx.guild)
                 await self.queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), user_nick))
@@ -54,7 +54,7 @@ class TTSModule(Cog):
     @command()
     async def clear(self, ctx):
         if ctx.author.id == 435200177217732633:
-            for file in os.listdir("./"):
+            for file in os.listdir("./messages"):
                 if file.endswith(".mp3"):
                     os.remove(file)
             print("Cache Cleared")

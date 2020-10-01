@@ -50,7 +50,10 @@ class ScribeBot(Bot):
             await vcc.disconnect(force=True)
 
     def get_user_nick(self, user):
+        self.nicknames = shelve.open("nick_data")
         user_nick = self.nicknames.get(str(user.id), None)
         if user_nick == None:
             user_nick = user.display_name
+        self.nicknames.close()
         return user_nick
+

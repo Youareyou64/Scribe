@@ -1,4 +1,6 @@
 import asyncio
+
+
 class QueueConsumer:
     def __init__(self, queue, voice_client):
         self.queue = queue

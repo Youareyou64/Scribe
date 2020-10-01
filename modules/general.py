@@ -1,6 +1,5 @@
 from discord import Embed, Colour
 from discord.ext.commands import Cog, command
-from discord.ext.commands import has_permissions
 import shelve
 
 class General(Cog):
@@ -13,7 +12,7 @@ class General(Cog):
         if cmd.lower() == 'tts':
             await ctx.send("**TTS** | TTS can be used when you are in a voice chat and would like the bot to speak on your behalf. Simply type `s!tts [Your message here]`! Bot must be in VC to use.")
         elif cmd.lower() == 'stt':
-            await ctx.send("STT Feature Coming Soon!")
+            await ctx.send("STT Feature Coming Soon! <:soontm:726858102271508571>")
         elif cmd.lower() == 'nick':
             await ctx.send("Use `s!nick [nickname]` to set a nickname that is spoken before any TTS message said on your behalf. Nicknames apply across all servers you are in.")
         elif cmd.lower() == 'me':
@@ -55,9 +54,11 @@ class General(Cog):
 
     @command()
     async def nick(self, ctx, nickname: str):
+        self.bot.nicknames = shelve.open("nick_data")
         self.bot.nicknames[str(ctx.message.author.id)] = nickname
         print(f"{self.bot.user.id}'s nickname changed to {nickname}")
         await ctx.send(":ballot_box_with_check: Nickname changed to " + nickname)
+        self.bot.nicknames.close()
 
     @command()
     async def invite(self, ctx):
