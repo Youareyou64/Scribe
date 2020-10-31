@@ -6,8 +6,7 @@ from discord.utils import get
 import shelve
 import os
 import asyncio
-from io import BytesIO
-from aiogtts import aiogTTS
+
 
 from utils.queue_consumer import QueueConsumer
 from utils.voice_message import VoiceMessage
@@ -62,7 +61,6 @@ class TTSModule(Cog):
         else:
             await ctx.send(":x: You do not have permission to take this action.")
 
-
     @command(aliases=["l", "lea"])
     async def leave(self, ctx):
         if ctx.message.author.voice:
@@ -75,6 +73,7 @@ class TTSModule(Cog):
                 await ctx.send(":x: You must be in the voice channel that you'd like me to leave")
         else:
             await ctx.send(":x: You must be in the voice channel that you'd like me to leave!")
+
 
 def setup(bot):
     bot.add_cog(TTSModule(bot))

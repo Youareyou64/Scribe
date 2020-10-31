@@ -6,11 +6,13 @@ import discord
 
 gtts_syncmode = True
 
+
 def syncgen(contents, filename):
     import gtts
-    print("Generaating message...")
+    print("Generating message...")
     gtts.gTTS(contents, lang="en").save(filename)
     print("Message generated and saved!")
+
 
 async def generate_soundfile(contents, filename):
     coro = None

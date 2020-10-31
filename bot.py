@@ -1,3 +1,5 @@
+#YOU NEED TO INSTALL THE VOICE RECEIVE MODULE using: pip install -U "discord.py[voice] @ git+https://github.com/Gorialis/discord.py@voice-recv-mk3"
+
 from discord import Game
 from discord.utils import get
 from discord.ext.commands import Bot

@@ -1,13 +1,17 @@
 from discord import Embed, Colour
 from discord.ext.commands import Cog, command
 import shelve
+import discord
+
 
 class General(Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
+
     @command()
-    async def help(self, ctx, *, cmd: str='general'):
+    async def help(self, ctx, *, cmd: str = 'general'):
         print(cmd)
         if cmd.lower() == 'tts':
             await ctx.send("**TTS** | TTS can be used when you are in a voice chat and would like the bot to speak on your behalf. Simply type `s!tts [Your message here]`! Bot must be in VC to use.")
@@ -44,6 +48,8 @@ class General(Cog):
     @command()
     async def ping(self, ctx):
         await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
+
+
 
     @command()
     async def privacy(self, ctx):
@@ -86,8 +92,7 @@ class General(Cog):
         contrib_embed = Embed(colour=Colour(0xff0000))
         contrib_embed.set_author(name="Scribe Contributors")
         contrib_embed.add_field(name="Lead Dev", value="Youareyou#0513", inline=False)
-        contrib_embed.add_field(name="Co Lead Dev", value="MvKal#6472", inline=False)
-        contrib_embed.add_field(name="Contributor", value="OneUpPotato#1418", inline=False)
+        contrib_embed.add_field(name="Contributors", value="OneUpPotato#1418, MvKal#6472", inline=False)
         contrib_embed.add_field(name="Hosting", value="deĉjo#7610 and the YACU", inline=False)
         contrib_embed.add_field(name="Special thanks to", value="Everyone else who helped out and provided support!", inline=False)
         await ctx.send(embed=contrib_embed)
@@ -111,7 +116,6 @@ class General(Cog):
             await ctx.send(f"{user} has been unmuted")
         else:
             await ctx.send(f":x: You are unable to unmute {user} because you do not have the Mute Users server permission.")
-
 
 
 def setup(bot):
