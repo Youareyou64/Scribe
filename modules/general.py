@@ -4,6 +4,9 @@ import shelve
 import discord
 
 
+
+
+
 class General(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -23,13 +26,15 @@ class General(Cog):
             await ctx.send("What's wrong? :/ *hugs*")
         elif cmd.lower() == 'mute':
             await ctx.send("Use to prevent an user from using the TTS command. Requires Mute Users server permission. Use unmute to unmute")
+        elif cmd.lower() == 'record':
+            await ctx.send("Records audio from a voice chat. Usage: `s!record <time>`. Example: `s!record 20s`")
         elif cmd.lower() == 'general':
             print("general help triggered")
             help_embed = Embed(colour=Colour(0xff0000))
             help_embed.set_author(name="**Scribe Bot Commands**")
             help_embed.add_field(name="ping", value="Returns bot Ping", inline=False)
             help_embed.add_field(name="info", value="Displays info about the bot", inline=False)
-            help_embed.add_field(name="contributors", value="Displays Bot Owner", inline=False)
+            help_embed.add_field(name="contributors", value="Displays Bot Contributors", inline=False)
             help_embed.add_field(name="help", value="returns this message", inline=False)
             help_embed.add_field(name="join", value="Joins a VC that you are in", inline=False)
             help_embed.add_field(name="leave", value="leaves a VC that you are in", inline=False)
@@ -47,7 +52,9 @@ class General(Cog):
 
     @command()
     async def ping(self, ctx):
-        await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
+        async with ctx.typing():
+            await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
+
 
 
 
@@ -86,6 +93,10 @@ class General(Cog):
     @command()
     async def goodnight(self, ctx):
         await ctx.send(f"Goodnight {ctx.message.author.name}")
+
+    @command()
+    async def work(self, ctx):
+        await ctx.send("It's your job to make me")
 
     @command()
     async def contributors(self, ctx):

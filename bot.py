@@ -31,7 +31,7 @@ class ScribeBot(Bot):
 
 
         # Load the modules.
-        modules = ["general", "events", "tts"]
+        modules = ["general", "events", "tts", "stt"]
         for module in modules:
             try:
                 self.load_extension(f"modules.{module}")

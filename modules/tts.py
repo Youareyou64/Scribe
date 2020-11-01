@@ -1,12 +1,15 @@
 from discord.ext.commands import Cog, command
 from discord import utils
 from discord.utils import get
+import discord
 
 
 import shelve
 import os
 import asyncio
-
+import pathlib
+from pathlib import Path
+discord.opus.load_opus(str(Path.cwd() / "waves\libopus.dll"))
 
 from utils.queue_consumer import QueueConsumer
 from utils.voice_message import VoiceMessage
@@ -73,6 +76,8 @@ class TTSModule(Cog):
                 await ctx.send(":x: You must be in the voice channel that you'd like me to leave")
         else:
             await ctx.send(":x: You must be in the voice channel that you'd like me to leave!")
+
+    
 
 
 def setup(bot):
