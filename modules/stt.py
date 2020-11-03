@@ -13,6 +13,7 @@ import shelve
 import os
 import asyncio
 
+devs = [435200177217732633, 554807126174990349, 430453791889031168, 564751291100823552, 332935845004705793]
 
 class ShortTime:
     compiled = re.compile("""(?:(?P<years>[0-9])(?:years?|y))?             # e.g. 2y
@@ -99,22 +100,29 @@ class STTModule(Cog):
     async def record(self, ctx: commands.Context, time: FutureTime):
         global rnumber
         rnumber = 0
-        waves_folder = pathlib.Path("./waves")
-        waves_file_format = str(ctx.message.id) + '.wav'
-        if not ctx.voice_client:
-            channel = ctx.message.author.voice.channel
-            await channel.connect()
-        wave_file = waves_folder / str(waves_file_format)
-        wave_file.touch()
-        fp = wave_file.open('rb')
-        ctx.voice_client.listen(discord.WaveSink(str(wave_file)))
-        await discord.utils.sleep_until(time.dt)
-        ctx.voice_client.stop_listening()
-        # print(discord.File(fp, filename='record.wav'))
-        await ctx.send("Recording being sent. Please wait!")
-        await ctx.send('Here\'s your recording file.', file=discord.File(fp, filename=str(wave_file.name)))
-        rnumber += 1
-        fp.close()
+        try:
+            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+            waves_folder = pathlib.Path("./waves")
+            waves_file_format = str(ctx.message.id) + '.wav'
+            if not ctx.voice_client:
+                channel = ctx.message.author.voice.channel
+                await channel.connect()
+            wave_file = waves_folder / str(waves_file_format)
+            wave_file.touch()
+            fp = wave_file.open('rb')
+            ctx.voice_client.listen(discord.WaveSink(str(wave_file)))
+            await discord.utils.sleep_until(time.dt)
+            ctx.voice_client.stop_listening()
+
+            # print(discord.File(fp, filename='record.wav'))
+            await ctx.send("Recording being sent. Please wait!")
+            await ctx.send('Here\'s your recording file.', file=discord.File(fp, filename=str(wave_file.name)))
+            fp.close()
+            rnumber += 1
+        except:
+            fp.close()
+            await ctx.send('Your recording could not be sent, likely because it is too large.')
+
         print('after fp close')
         # file clearing
 
@@ -129,14 +137,17 @@ class STTModule(Cog):
 
     @command()
     async def clearwav(self, ctx):
-        files_in_directory = os.listdir("./waves")
-        filtered_files = [file for file in files_in_directory if file.endswith(".wav")]
-        for file in filtered_files:
-            path_to_file = os.path.join("./waves", file)
+        if ctx.author.id in devs:
+            files_in_directory = os.listdir("./waves")
+            filtered_files = [file for file in files_in_directory if file.endswith(".wav")]
+            for file in filtered_files:
+                path_to_file = os.path.join("./waves", file)
 
-            os.remove(path_to_file)
-        print('wavs cleared')
-        await ctx.send('Wav files cleared')
+                os.remove(path_to_file)
+            print('wavs cleared')
+            await ctx.send('Wav files cleared')
+        else:
+            await ctx.send('Only devs can do this')
 
 def setup(bot):
     bot.add_cog(STTModule(bot))

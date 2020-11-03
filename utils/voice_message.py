@@ -63,8 +63,8 @@ class VoiceMessage:
             print("...")
         print("nick said!")
         await self.message_gen
-        #while not ("messages/{0}.mp3".format(self.msghash)) in os.listdir("messages"):
-        #    await asyncio.sleep(0.1)
+        # while not ("messages/{0}.mp3".format(self.msghash)) in os.listdir("messages"):
+        #     await asyncio.sleep(0.1)
         voice_client.play(discord.FFmpegPCMAudio("messages/{0}.mp3".format(self.msghash)), after=self.cleanup)
         while not self.spoken:
             await asyncio.sleep(1)

@@ -48,8 +48,8 @@ class ScribeBot(Bot):
         print('Bot is ready!')
 
         # Disconnect from any connected voice channels.
-        for vcc in self.voice_clients:
-            await vcc.disconnect(force=True)
+        # for vcc in self.voice_clients:
+            # await vcc.disconnect(force=True)
 
     def get_user_nick(self, user):
         self.nicknames = shelve.open("nick_data")

@@ -22,6 +22,7 @@ class TTSModule(Cog):
 
     @command()
     async def tts(self, ctx):
+
         muted_users = shelve.open("muted_users")
         is_muted = muted_users.get("<@!" + (str(ctx.author.id) + ">"), default=False)
         if is_muted == False:
@@ -73,9 +74,11 @@ class TTSModule(Cog):
                 await server.disconnect(force=True)
                 await ctx.send(":ballot_box_with_check: I have left the channel")
             except:
-                await ctx.send(":x: You must be in the voice channel that you'd like me to leave")
+                await ctx.send(":x: There was an error leaving the VC")
         else:
-            await ctx.send(":x: You must be in the voice channel that you'd like me to leave!")
+            vc = ctx.message.guild.voice_client
+            await vc.disconnect()
+            await ctx.send(':ballot_box_with_check: I have left the channel')
 
     
 
