@@ -114,7 +114,29 @@ class STTModule(Cog):
         await ctx.send("Recording being sent. Please wait!")
         await ctx.send('Here\'s your recording file.', file=discord.File(fp, filename=str(wave_file.name)))
         rnumber += 1
+        fp.close()
+        print('after fp close')
+        # file clearing
 
+        print("waiting to del wavs")
+        await asyncio.sleep(5)
+        files_in_directory = os.listdir("./waves")
+        filtered_files = [file for file in files_in_directory if file.endswith(".wav")]
+        for file in filtered_files:
+            path_to_file = os.path.join("./waves", file)
+            os.remove(path_to_file)
+        print('wavs cleared')
+
+    @command()
+    async def clearwav(self, ctx):
+        files_in_directory = os.listdir("./waves")
+        filtered_files = [file for file in files_in_directory if file.endswith(".wav")]
+        for file in filtered_files:
+            path_to_file = os.path.join("./waves", file)
+
+            os.remove(path_to_file)
+        print('wavs cleared')
+        await ctx.send('Wav files cleared')
 
 def setup(bot):
     bot.add_cog(STTModule(bot))

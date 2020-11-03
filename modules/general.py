@@ -56,6 +56,13 @@ class General(Cog):
             await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
 
 
+    @command()
+    async def leave_server(self, ctx, srvr: int):
+        if ctx.author.id == 435200177217732633:
+            guild = self.bot.get_guild(srvr)
+            await guild.leave()
+        else:
+            await ctx.send("Only bot devs can do this, if you'd like it to leave your server, use Discord's kick feature.")
 
 
     @command()
