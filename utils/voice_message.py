@@ -14,6 +14,9 @@ def syncgen(contents, filename):
     print("Message generated and saved!")
 
 
+
+
+
 async def generate_soundfile(contents, filename):
     coro = None
     print("Generating {0}: {1}".format(filename, contents))
@@ -23,7 +26,7 @@ async def generate_soundfile(contents, filename):
         coro = wrapper(contents, filename)
     else:
         import aiogtts
-        coro = aiogtts.aiogTTS().save(contents, filename, lang="en", slow=False)
+        coro = aiogtts.aiogTTS().save(contents, filename, lang='en')
     return coro
 
 
@@ -63,8 +66,12 @@ class VoiceMessage:
             print("...")
         print("nick said!")
         await self.message_gen
-        # while not ("messages/{0}.mp3".format(self.msghash)) in os.listdir("messages"):
-        #     await asyncio.sleep(0.1)
+        save_timer = 0
+        while not ("messages/{0}.mp3".format(self.msghash)) in os.listdir("messages") and save_timer < 25:
+            await asyncio.sleep(0.1)
+            print('waiting for message to save' + str(save_timer))
+            save_timer += 1
+        print('im here')
         voice_client.play(discord.FFmpegPCMAudio("messages/{0}.mp3".format(self.msghash)), after=self.cleanup)
         while not self.spoken:
             await asyncio.sleep(1)

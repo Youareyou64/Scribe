@@ -12,6 +12,8 @@ gTTS = "==2.1.1"
 "discord.py" = {extras = ["voice"], git = "https://github.com/Gorialis/discord.py", ref = "voice-recv-mk3"}
 parsedatetime = "*"
 python-dateutil = "*"
+gtts-token = "*"
+speechrecognition = "*"
 
 [requires]
 python_version = "3.8"

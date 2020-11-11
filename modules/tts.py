@@ -33,7 +33,7 @@ class TTSModule(Cog):
                 await self.queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), user_nick))
 
             except AttributeError:
-                await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connwction time out. ```AttributeError: Duplicated Voice Session upon reboot```")
+                await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connection time out. ```AttributeError: Duplicated Voice Session upon reboot```")
             except KeyError:
                 await ctx.send(":x: Error. I must be in a voice channel to use this command.")
         else:

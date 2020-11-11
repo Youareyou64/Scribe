@@ -31,7 +31,8 @@ class General(Cog):
         elif cmd.lower() == 'general':
             print("general help triggered")
             help_embed = Embed(colour=Colour(0xff0000))
-            help_embed.set_author(name="**Scribe Bot Commands**")
+            help_embed.set_author(name="Scribe Bot Commands")
+            help_embed.add_field(name="For help, feedback, bug reports, or suggestions, join our Discord Server!", value="https://discord.gg/yq8qzhx", inline=False)
             help_embed.add_field(name="ping", value="Returns bot Ping", inline=False)
             help_embed.add_field(name="info", value="Displays info about the bot", inline=False)
             help_embed.add_field(name="contributors", value="Displays Bot Contributors", inline=False)
@@ -55,6 +56,20 @@ class General(Cog):
         async with ctx.typing():
             await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
 
+    @command(aliases=["feedback", "support", "suggest", "suggestion", "bug", "report"])
+    async def discord(self, ctx):
+        embed = discord.Embed(title="Scribe's Discord Server", url="https://discord.gg/yq8qzhx",
+                              description="Join Scribe's Discord server by clicking the link above to give feedback/suggestions, report bugs, get help, or to contribute!",
+                              color=0x21cde4)
+        embed.set_footer(text="For general help use s!help")
+        await ctx.send(embed=embed)
+
+    @command(aliases=["repo", "git", "repository"])
+    async def github(self, ctx):
+        embed = discord.Embed(title="Github Repo", url="https://github.com/Youareyou64/Scribe/",
+                              description="Scribe's Github Repository", color=0xe5935d)
+        embed.set_footer(text="Support Server: discord.gg/yq8qzhx")
+        await ctx.send(embed=embed)
 
     @command()
     async def leave_server(self, ctx, srvr: int):
