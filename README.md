@@ -38,7 +38,7 @@ All contribution ideas are welcome to discuss, so don't hesitate to come by and 
 Suggestions, feedback, and bug reports are also welcome!
 
 ###License
-Scribe has been released under the GPL 3.0 license.
+Scribe has been released under the [GPL 3.0 license](https://github.com/Youareyou64/Scribe/blob/master/LICENSE.md).
 
 ###Links
 [Discord Server](https://discord.gg/yq8qzhx)
