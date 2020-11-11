@@ -54,6 +54,7 @@ class VoiceMessage:
 
     async def message_generator(self):
         return asyncio.create_task(await generate_soundfile(self.message, "messages/{0}.mp3".format(self.msghash)))
+        print("Message_generator executed")
 
     async def speak(self, voice_client):
         print("Speaking {0}: {1}".format(self.author_nick, self.message))
@@ -67,9 +68,11 @@ class VoiceMessage:
         print("nick said!")
         await self.message_gen
         save_timer = 0
-        while not ("messages/{0}.mp3".format(self.msghash)) in os.listdir("messages") and save_timer < 25:
+        print("{0}.mp3".format(self.msghash))
+        while not ("{0}.mp3".format(self.msghash)) in os.listdir("messages"): # and save_timer < 15:
+
             await asyncio.sleep(0.1)
-            print('waiting for message to save' + str(save_timer))
+            #print('waiting for message to save' + str(save_timer))
             save_timer += 1
         print('im here')
         voice_client.play(discord.FFmpegPCMAudio("messages/{0}.mp3".format(self.msghash)), after=self.cleanup)
