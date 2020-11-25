@@ -2,9 +2,10 @@ from discord import Embed, Colour
 from discord.ext.commands import Cog, command
 import shelve
 import discord
-
-
-
+import psutil
+from psutil import virtual_memory
+from pygount import ProjectSummary, SourceAnalysis
+from glob import glob
 
 
 class General(Cog):
@@ -55,6 +56,27 @@ class General(Cog):
     async def ping(self, ctx):
         async with ctx.typing():
             await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
+            await ctx.send("Use `s!stats` for full bot stats")
+
+    @command(aliases=["stats", "cpu", "ram", "system"])
+    async def sys(self, ctx):
+
+        cpu = psutil.cpu_percent(interval=1)
+        memory = psutil.virtual_memory()
+        memory = memory[1]
+
+        memory = round(memory / 1024 / 1024)
+
+        nmemory = virtual_memory().percent
+
+        embed = discord.Embed(title="Scribe System Stats", description="Approximate statistics about Scribe's server",
+                              color=0x2eff3c)
+        embed.add_field(name="Ping", value=f"**{round(self.bot.latency * 1000)}ms**", inline=False)
+        embed.add_field(name="CPU Usage", value=f"{cpu}%", inline=False)
+        embed.add_field(name="RAM Usage", value=f"{nmemory}%", inline=True)
+
+        embed.set_footer(text="s!help")
+        await ctx.send(embed=embed)
 
     @command(aliases=["feedback", "support", "suggest", "suggestion", "bug", "report"])
     async def discord(self, ctx):
@@ -108,8 +130,8 @@ class General(Cog):
         info_embed.add_field(name="Owner", value="@Youareyou#0513", inline=True)
         info_embed.add_field(name="Contributors", value="s!contributors", inline=False)
         info_embed.add_field(name="Help", value="s!help", inline=True)
-        info_embed.add_field(name="Users", value=len(self.bot.users), inline=False)
-        info_embed.add_field(name="Guilds", value=len(self.bot.guilds), inline=True)
+        info_embed.add_field(name="Users", value=str(len(self.bot.users)), inline=False)
+        info_embed.add_field(name="Guilds", value=str(len(self.bot.guilds)), inline=True)
         await ctx.send(embed=info_embed)
 
     @command()

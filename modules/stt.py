@@ -120,6 +120,10 @@ class STTModule(Cog):
             fp.close()
             rnumber += 1
         except:
+            waves_folder = pathlib.Path("./waves")
+            waves_file_format = str(ctx.message.id) + '.wav'
+            wave_file = waves_folder / str(waves_file_format)
+            fp = wave_file.open('rb')
             fp.close()
             await ctx.send('Your recording could not be sent, likely because it is too large.')
 
@@ -145,7 +149,21 @@ class STTModule(Cog):
 
                 os.remove(path_to_file)
             print('wavs cleared')
-            await ctx.send('Wav files cleared')
+            await ctx.send('Wav files cleared (use `clearmsg` to clear tts mp3s.')
+        else:
+            await ctx.send('Only devs can do this')
+
+    @command()
+    async def clearmsg(self, ctx):
+        if ctx.author.id in devs:
+            files_in_directory = os.listdir("./messages")
+            filtered_files = [file for file in files_in_directory if file.endswith(".mp3")]
+            for file in filtered_files:
+                path_to_file = os.path.join("./messages", file)
+
+                os.remove(path_to_file)
+            print('mp3s cleared')
+            await ctx.send('mp3 tts files cleared')
         else:
             await ctx.send('Only devs can do this')
 

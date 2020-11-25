@@ -2,7 +2,7 @@ import hashlib
 import os
 import asyncio
 import discord
-
+import time
 
 gtts_syncmode = True
 
@@ -53,8 +53,8 @@ class VoiceMessage:
             print("nickname was cached")
 
     async def message_generator(self):
-        return asyncio.create_task(await generate_soundfile(self.message, "messages/{0}.mp3".format(self.msghash)))
         print("Message_generator executed")
+        return asyncio.create_task(await generate_soundfile(self.message, "messages/{0}.mp3".format(self.msghash)))
 
     async def speak(self, voice_client):
         print("Speaking {0}: {1}".format(self.author_nick, self.message))
@@ -70,18 +70,22 @@ class VoiceMessage:
         save_timer = 0
         print("{0}.mp3".format(self.msghash))
         while not ("{0}.mp3".format(self.msghash)) in os.listdir("messages"): # and save_timer < 15:
-
             await asyncio.sleep(0.1)
-            #print('waiting for message to save' + str(save_timer))
+            print('waiting for message to save' + str(save_timer))
             save_timer += 1
+
+            await asyncio.sleep(.1)
+        await asyncio.sleep(.2)
         print('im here')
         voice_client.play(discord.FFmpegPCMAudio("messages/{0}.mp3".format(self.msghash)), after=self.cleanup)
         while not self.spoken:
             await asyncio.sleep(1)
 
     def cleanup(self, *args):
+        time.sleep(1)
         try:
             os.remove("messages/{0}.mp3".format(self.msghash))
+            print("cleaned messages/{0}.mp3".format(self.msghash))
         except FileNotFoundError:
             pass
         print("Message spoken")

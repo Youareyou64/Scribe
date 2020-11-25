@@ -7,8 +7,8 @@ If you'd like to help us work on Scribe, see the contributing section below!
 
 ---
 
-###Features
-####Complete Features
+### Features
+####sComplete Features
 - **Voice Chat Text To Speech (TTS)**
     * Scribe's TTS system can take a text input from a text channel, and speak it into a voice chat.
     * The TTS system uses GTTS for a natural sounding voice, and fast processing.

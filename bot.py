@@ -19,7 +19,7 @@ class ScribeBot(Bot):
         super().__init__(
             command_prefix=self.settings.default_prefix,
             case_insensitive=True,
-            activity=Game(name=f"Type {self.settings.default_prefix}info"),
+            activity=Game(name=f"{self.settings.default_prefix}info"),
         )
 
         # Remove the default help command.

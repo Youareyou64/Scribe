@@ -10,4 +10,6 @@ python-dateutil==2.8.1
 python-dateutil==2.8.1
 python-dotenv==0.14.0
 typing-extensions==3.7.4.3
-
+SpeechRecognition==3.8.1
+psutil==5.7.3
+pygount~=1.2.4
