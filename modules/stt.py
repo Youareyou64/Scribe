@@ -149,7 +149,7 @@ class STTModule(Cog):
 
                 os.remove(path_to_file)
             print('wavs cleared')
-            await ctx.send('Wav files cleared (use `clearmsg` to clear tts mp3s.')
+            await ctx.send('Wav files cleared (use `clearmsg` to clear tts mp3s or `clearnicks` for nick cache.)')
         else:
             await ctx.send('Only devs can do this')
 
@@ -163,6 +163,20 @@ class STTModule(Cog):
 
                 os.remove(path_to_file)
             print('mp3s cleared')
+            await ctx.send('mp3 tts files cleared')
+        else:
+            await ctx.send('Only devs can do this')
+
+    @command()
+    async def clearnicks(self, ctx):
+        if ctx.author.id in devs:
+            files_in_directory = os.listdir("./nicknames_cache")
+            filtered_files = [file for file in files_in_directory if file.endswith(".mp3")]
+            for file in filtered_files:
+                path_to_file = os.path.join("./nicknames_cache", file)
+
+                os.remove(path_to_file)
+            print('Nickname Cache files cleared')
             await ctx.send('mp3 tts files cleared')
         else:
             await ctx.send('Only devs can do this')

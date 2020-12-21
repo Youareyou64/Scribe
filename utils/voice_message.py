@@ -72,11 +72,12 @@ class VoiceMessage:
         while not ("{0}.mp3".format(self.msghash)) in os.listdir("messages"): # and save_timer < 15:
             await asyncio.sleep(0.1)
             print('waiting for message to save' + str(save_timer))
-            save_timer += 1
+            # save_timer += 1
 
             await asyncio.sleep(.1)
         await asyncio.sleep(.2)
         print('im here')
+        await asyncio.sleep(2)
         voice_client.play(discord.FFmpegPCMAudio("messages/{0}.mp3".format(self.msghash)), after=self.cleanup)
         while not self.spoken:
             await asyncio.sleep(1)

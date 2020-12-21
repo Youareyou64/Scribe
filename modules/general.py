@@ -6,6 +6,7 @@ import psutil
 from psutil import virtual_memory
 from pygount import ProjectSummary, SourceAnalysis
 from glob import glob
+from discord.ext import commands
 
 
 class General(Cog):
@@ -110,6 +111,7 @@ class General(Cog):
         await ctx.send("", embed=privacyembed)
 
     @command()
+    @commands.cooldown(2, 30, commands.BucketType.user)
     async def nick(self, ctx, nickname: str):
         self.bot.nicknames = shelve.open("nick_data")
         self.bot.nicknames[str(ctx.message.author.id)] = nickname

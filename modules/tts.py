@@ -2,6 +2,7 @@ from discord.ext.commands import Cog, command
 from discord import utils
 from discord.utils import get
 import discord
+from discord.ext import commands
 
 
 import shelve
@@ -21,6 +22,7 @@ class TTSModule(Cog):
         self.queues = {}
 
     @command()
+    @commands.cooldown(2, 5, commands.BucketType.user)
     async def tts(self, ctx):
 
         muted_users = shelve.open("muted_users")
@@ -40,7 +42,10 @@ class TTSModule(Cog):
             print("Failed to TTS, user is muted")
             await ctx.send("TTS Failed. User has been banned from using TTS. Use s!unmute to unmute.")
 
+
+
     @command(aliases=["j", "joi"])
+    @commands.cooldown(2, 20, commands.BucketType.guild)
     async def join(self, ctx):
         try:
             channel = ctx.message.author.voice.channel
@@ -65,7 +70,9 @@ class TTSModule(Cog):
         else:
             await ctx.send(":x: You do not have permission to take this action.")
 
+
     @command(aliases=["l", "lea"])
+    @commands.cooldown(3, 15, commands.BucketType.user)
     async def leave(self, ctx):
         if ctx.message.author.voice:
             try:
