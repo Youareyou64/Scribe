@@ -14,7 +14,7 @@ class Events(Cog):
             await ctx.send(f"You're using that command too fast! Try again in {error.retry_after:,.2f} seconds.")
         else:
             print(error)
-            await ctx.send(f"Command failed error message `{error}`")
+            await ctx.send(f"Command failed. Error message: `{error}`")
 
     @Cog.listener()
     async def on_disconnect(self, ctx):

@@ -16,7 +16,7 @@ class General(Cog):
 
 
     @command()
-    async def help(self, ctx, *, cmd: str = 'general'):
+    async def oldhelp(self, ctx, *, cmd: str = 'general'):
         print(cmd)
         if cmd.lower() == 'tts':
             await ctx.send("**TTS** | TTS can be used when you are in a voice chat and would like the bot to speak on your behalf. Simply type `s!tts [Your message here]`! Bot must be in VC to use.")
@@ -59,6 +59,10 @@ class General(Cog):
             await ctx.send(f"Pong! **{round(self.bot.latency * 1000)}ms**")
             await ctx.send("Use `s!stats` for full bot stats")
 
+    # @command(aliases=['bug', 'report', 'suggestion', 'contribute'])
+    # async def support(self, ctx):
+        # await ctx.send("To report a bug, get help, suggest a feature, or contribute to Scribe, join Scribe's Discord server! https://discord.gg/yq8qzhx")
+
     @command(aliases=["stats", "cpu", "ram", "system"])
     async def sys(self, ctx):
 
@@ -82,9 +86,9 @@ class General(Cog):
     @command(aliases=["feedback", "support", "suggest", "suggestion", "bug", "report"])
     async def discord(self, ctx):
         embed = discord.Embed(title="Scribe's Discord Server", url="https://discord.gg/yq8qzhx",
-                              description="Join Scribe's Discord server by clicking the link above to give feedback/suggestions, report bugs, get help, or to contribute!",
+                              description="Join Scribe's Discord server by clicking the link above to give feedback/suggestions, report bugs, get help, or contribute to Scribe!",
                               color=0x21cde4)
-        embed.set_footer(text="For general help use s!help")
+        embed.set_footer(text="For general help use s!help | https://discord.gg/yq8qzhx")
         await ctx.send(embed=embed)
 
     @command(aliases=["repo", "git", "repository"])
@@ -111,7 +115,7 @@ class General(Cog):
         await ctx.send("", embed=privacyembed)
 
     @command()
-    @commands.cooldown(2, 30, commands.BucketType.user)
+    @commands.cooldown(3, 30, commands.BucketType.user)
     async def nick(self, ctx, nickname: str):
         self.bot.nicknames = shelve.open("nick_data")
         self.bot.nicknames[str(ctx.message.author.id)] = nickname
@@ -173,6 +177,12 @@ class General(Cog):
             await ctx.send(f"{user} has been unmuted")
         else:
             await ctx.send(f":x: You are unable to unmute {user} because you do not have the Mute Users server permission.")
+
+    @command()
+    async def echo(self, ctx, id, *, echowords: str):
+        if ctx.message.author.id == 435200177217732633:  # put in id's in a list or replace it with one string
+            sendchannel = self.bot.get_channel(int(id))
+            await sendchannel.send(f"{echowords}")
 
 
 def setup(bot):
