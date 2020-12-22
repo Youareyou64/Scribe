@@ -24,23 +24,32 @@ class TTSModule(Cog):
     @command()
     @commands.cooldown(2, 5, commands.BucketType.user)
     async def tts(self, ctx):
+        # filter characters
+        # print(ctx.message.content)
+        encoded_string = ctx.message.content.encode("ascii", "ignore")
+        # print(f"Encoded: {encoded_string}")
+        decoded_string = encoded_string.decode()
+        # print(f"Decoded: {decoded_string}")
+        if len(ctx.message.content) > len(decoded_string):
+            await ctx.send(f"Please use only Latin ASCII characters!")
 
-        muted_users = shelve.open("muted_users")
-        is_muted = muted_users.get("<@!" + (str(ctx.author.id) + ">"), default=False)
-        if is_muted == False:
-            try:
-                await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
-                user_nick = self.bot.get_user_nick(ctx.author)
-                voice = get(self.bot.voice_clients, guild=ctx.guild)
-                await self.queues[voice].put(VoiceMessage(" ".join(ctx.message.content.split(" ")[1:]), user_nick))
-
-            except AttributeError:
-                await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connection time out. ```AttributeError: Duplicated Voice Session upon reboot```")
-            except KeyError:
-                await ctx.send(":x: Error. I must be in a voice channel to use this command.")
         else:
-            print("Failed to TTS, user is muted")
-            await ctx.send("TTS Failed. User has been banned from using TTS. Use s!unmute to unmute.")
+            muted_users = shelve.open("muted_users")
+            is_muted = muted_users.get("<@!" + (str(ctx.author.id) + ">"), default=False)
+            if is_muted == False:
+                try:
+                    await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+                    user_nick = self.bot.get_user_nick(ctx.author)
+                    voice = get(self.bot.voice_clients, guild=ctx.guild)
+                    await self.queues[voice].put(VoiceMessage(" ".join(decoded_string.split(" ")[1:]), user_nick))
+
+                except AttributeError:
+                    await ctx.send(":x: Error. Please have a moderator kick the bot from the voice channel and then send the join command again, or let bot connection time out. ```AttributeError: Duplicated Voice Session upon reboot```")
+                except KeyError:
+                    await ctx.send(":x: Error. I must be in a voice channel to use this command.")
+            else:
+                print("Failed to TTS, user is muted")
+                await ctx.send("TTS Failed. User has been banned from using TTS. Use s!unmute to unmute.")
 
 
 
