@@ -178,11 +178,7 @@ class General(Cog):
         else:
             await ctx.send(f":x: You are unable to unmute {user} because you do not have the Mute Users server permission.")
 
-    @command()
-    async def echo(self, ctx, id, *, echowords: str):
-        if ctx.message.author.id == 435200177217732633:  # put in id's in a list or replace it with one string
-            sendchannel = self.bot.get_channel(int(id))
-            await sendchannel.send(f"{echowords}")
+
 
 
 def setup(bot):

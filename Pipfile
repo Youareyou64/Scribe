@@ -16,6 +16,7 @@ speechrecognition = "*"
 psutil = "*"
 pygount = "*"
 pyttsx3 = "*"
+regex = "*"
 
 [requires]
 python_version = "3.8"

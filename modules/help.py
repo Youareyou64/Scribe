@@ -48,7 +48,7 @@ class Help(Cog):
         embed.add_field(name="tts <message>", value="Have Scribe speak your message into a Voice Chat", inline=False)
         embed.add_field(name="join", value="Have Scribe join a Voice Chat", inline=False)
         embed.add_field(name="leave", value="Have Scribe leave a Voice Chat", inline=False)
-        embed.add_field(name="nick", value="Set a global nickname that is spoken before your TTS messages", inline=True)
+        embed.add_field(name="nick <nickname>", value="Set a global nickname that is spoken before your TTS messages", inline=True)
         embed.set_footer(text="Use s!help to see other help categories")
         await ctx.send(embed=embed)
 

@@ -19,7 +19,7 @@ class ScribeBot(Bot):
         super().__init__(
             command_prefix=self.settings.default_prefix,
             case_insensitive=True,
-            activity=Game(name=f"{self.settings.default_prefix}info"),
+            activity=Game(name=f"s!help"),
         )
 
         # Remove the default help command.
@@ -31,7 +31,7 @@ class ScribeBot(Bot):
 
 
         # Load the modules.
-        modules = ["general", "events", "tts", "stt", "help"]
+        modules = ["general", "events", "tts", "stt", "help", "dev"]
         for module in modules:
             try:
                 self.load_extension(f"modules.{module}")
