@@ -150,13 +150,11 @@ class General(Cog):
 
     @command()
     async def contributors(self, ctx):
-        contrib_embed = Embed(colour=Colour(0xff0000))
-        contrib_embed.set_author(name="Scribe Contributors")
-        contrib_embed.add_field(name="Lead Dev", value="Youareyou#0513", inline=False)
-        contrib_embed.add_field(name="Contributors", value="OneUpPotato#1418, MvKal#6472", inline=False)
-        contrib_embed.add_field(name="Hosting", value="deĉjo#7610 and the YACU", inline=False)
-        contrib_embed.add_field(name="Special thanks to", value="Everyone else who helped out and provided support!", inline=False)
-        await ctx.send(embed=contrib_embed)
+        embed = discord.Embed(title="Contributors", description="Everyone who has helped with Scribe", color=0x54add9)
+        embed.add_field(name="Lead Dev", value="Youareyou#0513", inline=False)
+        embed.add_field(name="Code Contributors", value="SamKal, OneUpPotato", inline=False)
+        embed.add_field(name="Other Contributors", value="JayRy27, CZMG, ", inline=False)
+        await ctx.send(embed=embed)
 
     @command()
     async def mute(self, ctx, *, user: str):

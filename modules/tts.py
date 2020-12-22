@@ -32,6 +32,10 @@ class TTSModule(Cog):
         # print(f"Decoded: {decoded_string}")
         if len(ctx.message.content) > len(decoded_string):
             await ctx.send(f"Please use only Latin ASCII characters!")
+            await ctx.message.add_reaction('\N{CROSS MARK}')
+        elif len(decoded_string) > 1024:
+            await ctx.send(f"Your message is too long! Messages must be under 1024 characters. Your message was {len(decoded_string)} characters.")
+            await ctx.message.add_reaction('\N{CROSS MARK}')
 
         else:
             muted_users = shelve.open("muted_users")
@@ -50,6 +54,7 @@ class TTSModule(Cog):
             else:
                 print("Failed to TTS, user is muted")
                 await ctx.send("TTS Failed. User has been banned from using TTS. Use s!unmute to unmute.")
+                await ctx.message.add_reaction('\N{CROSS MARK}')
 
 
 
