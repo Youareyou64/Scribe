@@ -1,14 +1,14 @@
 # Scribe 
 
-##Scribe: Your friendly voice chat utility Discord bot with TTS and STT!
+## Scribe: Your friendly voice chat utility Discord bot with TTS and STT!
 
-Scribe is still a Work In Progress! Many elements of it are incomplete, inefficient, or just plain broken.
+Scribe is still a Work In Progress!
 If you'd like to help us work on Scribe, see the contributing section below!
 
 ---
 
 ### Features
-####sComplete Features
+#### Complete Features
 - **Voice Chat Text To Speech (TTS)**
     * Scribe's TTS system can take a text input from a text channel, and speak it into a voice chat.
     * The TTS system uses GTTS for a natural sounding voice, and fast processing.
@@ -22,23 +22,24 @@ If you'd like to help us work on Scribe, see the contributing section below!
     though this is planned to change.
     
     
-####In Progress Features
+#### In Progress Features
 - **Speech To Text** from Voice Chat audio
     * Scribe will be able to process speech from voice chats into text using Speech Recognition
 
-####Planned Features
+#### Planned Features
 - **Voice Chat Events**
     * This would be a system that allows server moderators to begin an event in a VC,
     and log who joined and left when, as well as gather data about user engagement and participation.
 
-###Contributing
+### Contributing
 If you want to help out by contributing to Scribe, please join our [Discord Server](https://discord.gg/yq8qzhx) so we can first discuss your ideas.
 All contribution ideas are welcome to discuss, so don't hesitate to come by and show us your idea! You can also open an issue here if you'd prefer.
 
 Suggestions, feedback, and bug reports are also welcome!
 
-###License
+### License
 Scribe has been released under the [GPL 3.0 license](https://github.com/Youareyou64/Scribe/blob/master/LICENSE.md).
 
-###Links
+### Links
 [Discord Server](https://discord.gg/yq8qzhx)
+If you'd like the bot in your server, please contact @Youareyou64#0513 on Discord, or join the support server.
