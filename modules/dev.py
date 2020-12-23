@@ -26,6 +26,21 @@ class Dev(Cog):
             await ctx.send("Scribe out. `Connection closing...`")
             await ctx.bot.close()
 
+    @command()
+    async def servers(self, ctx):
+        if ctx.author.id == 435200177217732633:
+            for guild in self.bot.guilds:
+                await ctx.send(guild.name)
+
+    @command(aliases=['users', 'members'])
+    async def memcount(self, ctx):
+        gmems = 0
+        if ctx.author.id == 435200177217732633:
+            for guild in self.bot.guilds:
+                print(len(guild.members))
+                gmems = gmems + len(guild.members)
+            await ctx.send(str(gmems))
+
 
 def setup(bot):
     bot.add_cog(Dev(bot))

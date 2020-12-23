@@ -1,8 +1,9 @@
 # YOU NEED TO INSTALL THE VOICE RECEIVE MODULE using: pip install -U "discord.py[voice] @ git+https://github.com/Gorialis/discord.py@voice-recv-mk3"
-
+from discord import Intents
 from discord import Game
 from discord.utils import get
 from discord.ext.commands import Bot
+import discord
 
 import shelve
 from traceback import print_exc
@@ -15,11 +16,15 @@ class ScribeBot(Bot):
         # Load the bot's settings.
         self.settings = Settings()
 
+        intents = Intents.default()
+        intents.members = True
+
         # Initiate the bot.
         super().__init__(
             command_prefix=self.settings.default_prefix,
             case_insensitive=True,
             activity=Game(name=f"s!help"),
+            intents=intents
         )
 
         # Remove the default help command.

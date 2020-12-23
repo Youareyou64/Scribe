@@ -133,6 +133,10 @@ class General(Cog):
 
     @command()
     async def info(self, ctx):
+        gmems = 0
+        for guild in self.bot.guilds:
+            # print(len(guild.members))
+            gmems = gmems + len(guild.members)
         info_embed = Embed(title="Bot Info", colour=Colour(0x7289DA))
         info_embed.set_footer(text="Contact @Youareyou#0513 with questions, feedback, or for help.")
         info_embed.set_author(name="Bot Information")
