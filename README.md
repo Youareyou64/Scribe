@@ -44,4 +44,5 @@ Scribe has been released under the [GPL 3.0 license](https://github.com/Youareyo
 
 ### Links
 [Discord Server](https://discord.gg/yq8qzhx)
+
 If you'd like to invite the bot to your server, click [click here](https://discord.com/api/oauth2/authorize?client_id=754137339760214097&permissions=104188992&scope=bot)
