@@ -5,7 +5,7 @@
 Scribe is still a Work In Progress!
 If you'd like to help us work on Scribe, see the contributing section below!
 
-**If you want to get Scribe in your server** please contact Youareyou64#0513 on Discord, as the bot is still private.
+**If you want to get Scribe in your server** please see the Links section below.
 
 ---
 
@@ -44,4 +44,5 @@ Scribe has been released under the [GPL 3.0 license](https://github.com/Youareyo
 
 ### Links
 [Discord Server](https://discord.gg/yq8qzhx)
-If you'd like the bot in your server, please contact @Youareyou64#0513 on Discord, or join the support server.
+
+If you'd like to invite the bot to your server, click [click here](https://discord.com/api/oauth2/authorize?client_id=754137339760214097&permissions=104188992&scope=bot)
