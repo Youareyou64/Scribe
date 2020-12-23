@@ -5,6 +5,8 @@
 Scribe is still a Work In Progress!
 If you'd like to help us work on Scribe, see the contributing section below!
 
+**If you want to get Scribe in your server** please contact Youareyou64#0513 on Discord, as the bot is still private.
+
 ---
 
 ### Features
