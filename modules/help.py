@@ -38,6 +38,7 @@ class Help(Cog):
         embed.add_field(name="contributors", value="See everyone who has helped with Scribe", inline=False)
         embed.add_field(name="invite", value="Invite the bot to your server", inline=False)
         embed.add_field(name="support", value="Get help with the bot, suggest features, etc. ", inline=False)
+        embed.add_field(name="github", value="View Scribe's Github Repository", inline=False)
         embed.set_footer(text="Use s!help to see other help categories")
         await ctx.send(embed=embed)
 

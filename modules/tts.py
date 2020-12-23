@@ -10,7 +10,9 @@ import os
 import asyncio
 import pathlib
 from pathlib import Path
-discord.opus.load_opus(str(Path.cwd() / "waves\libopus.dll"))
+
+# discord.opus.load_opus(str(Path.cwd() / "waves\libopus.dll"))
+
 
 from utils.queue_consumer import QueueConsumer
 from utils.voice_message import VoiceMessage

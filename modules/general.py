@@ -125,7 +125,11 @@ class General(Cog):
 
     @command()
     async def invite(self, ctx):
-        await ctx.send("As I am still in a development phase, please DM <@!435200177217732633> if you're interested in getting me in your server.")
+        embed = discord.Embed(title="Click here to invite Scribe to your server",
+                              url="https://discord.com/api/oauth2/authorize?client_id=754137339760214097&permissions=104188992&scope=bot",
+                              description="Or join the [Support Server](https://discord.gg/yq8qzhx)", color=0x26b9f7)
+        embed.set_footer(text="Join the support server or contact @Youareyou#0513 for help")
+        await ctx.send(embed=embed)
 
     @command()
     async def info(self, ctx):
